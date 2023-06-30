@@ -1,2 +1,2 @@
 # pyre
-Pyre is an LSTM Model that generates FHIR Resources from Unstructured Free Text Clinical Notes 
+Pyre is an PyTorch LSTM Model that generates FHIR Resources from Unstructured Free Text Clinical Notes 
