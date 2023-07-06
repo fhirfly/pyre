@@ -4,9 +4,12 @@ Lists of DataFrames are created for each FHIR Resource (eg. Patient, Encounter, 
 FHIR Resouce inputs are stored in NDJSON format (See Bulk FHIR) in the inputs directory and data is loaded into Pyre.
 Pyre also contains built in analtics functions for common Population Health Criteria,  Pull Requesst are welcome for new functions.
 
+This is a development branch of Pyre, please consider that.
+This Branch attempt to develop a CQL query interface to Pyre
+
 #Requirements:
 
-```pip install pandas, ndjson```
+```pip install pandas, ndjson, antlr4-python3-runtime, numpy, ```
 
 #To Start a Pyre:
 
