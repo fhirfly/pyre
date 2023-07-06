@@ -1,10 +1,12 @@
-import pandas as pd
-from analytics_module import patient_analysis
 from datetime import datetime
-from pandas import json_normalize
-import kindling
+import pandas as pd
 import ndjson
+from pandas import json_normalize
+
+#Part of this module
+import kindling
 from frames.fhirframe import fhir_frame, patient_frame    
+from analytics_module import patient_analysis
 
 def main():
     # Load data
