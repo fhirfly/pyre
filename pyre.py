@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 import pandas as pd
 import ndjson
@@ -5,7 +6,8 @@ from pandas import json_normalize
 
 #Part of this module
 import kindling
-from frames.fhirframe import fhir_frame, patient_frame    
+import pyre_utils
+from frames.fhirframe import fhir_frame, patient_frame, device_frame    
 from analytics_module import patient_analysis
 
 def main():
@@ -38,32 +40,34 @@ def main():
         print("Data Load Error. Exiting the program...")
 
 def load_data():
-    # Implement your data loading logic here
-    # Return a list of Pandas DataFrames
+   # Implement your data loading logic here
+   # Return a list of Pandas DataFrames
+   # Load the FHIR dataset
+   start_date = datetime.now()
+   print("Start Data load at: " + str(start_date))
+   #Load data for each NDSON file in the data directory
+   for file in os.listdir('./data/'):
+        with open('./data/' + file, encoding='utf-8') as f:
+            print("loading file: " + './data/' + file)    
+            resourceType = file.split('.')[0]        
+            try:
+                data = ndjson.load(f)
+                i = 0
+                for line in data:            
+                    flat = kindling.flatten_fhir(line)
+                    df = pd.json_normalize(flat)
+                    # Create a meta frame as a dictionary
+                    pyre_utils.moveDFtoDictionary(resourceType, df)
+                    i = i + 1
+                print('loaded: ' + str(i) + ' ' + resourceType + ' files')                   
+            except:
+                print("Error loading data file: " + str(file))
+                return False
+   end_date = datetime.now()
+   time_elasped = end_date - start_date
+   print("Loading data took: " + str(time_elasped))
+   return True
 
-    with open('./data/Patient.ndjson', encoding='utf-8') as f:
-        start_date = datetime.now()
-        print(start_date)
-        data = ndjson.load(f)
-        patient_id = 0
-        for line in data:
-            # json_data is the JSON object
-            df = json_normalize(line)
-            flat = kindling.flatten_fhir(line)
-            df = pd.json_normalize(flat)
-
-            # Store column names and index
-            columns = df.columns
-            index = df.index
-
-            # Create a meta frame as a dictionary
-            patient_frame[patient_id] = df
-            patient_id = patient_id + 1
-        
-        end_date = datetime.now()
-        time_elasped = end_date - start_date
-        print("Loading data took: " + str(time_elasped))
-        return True
-
+#Main function
 if __name__ == "__main__":
     main()

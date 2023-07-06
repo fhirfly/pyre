@@ -1,11 +1,11 @@
-patient_frame = {}
+patient_frame = []
 encounter_frame = {}
 condition_frame = {}
 medication_frame = {}
 procedure_frame = {}
 observation_frame = {}
 diagnostic_report_frame = {}
-device_frame = {}
+device_frame = []
 immunization_frame = {}
 allergyintolerance_frame = {}
 goal_frame = {}
