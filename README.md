@@ -10,7 +10,7 @@ Pyre is a specialized analytics package designed for healthcare data in Python. 
 ## Requirements:
 Ensure you have the necessary packages installed:
 
-```pip install pandas ndjson```
+```pip install polars ndjson```
 
 ## Getting Started:
 To initiate Pyre, run:

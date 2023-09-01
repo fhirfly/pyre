@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-import pandas as pd
+import polars as pl
 import ndjson
 from pandas import json_normalize
 
@@ -55,7 +55,8 @@ def load_data():
                 i = 0
                 for line in data:            
                     flat = kindling.flatten_fhir(line)
-                    df = pd.json_normalize(flat)
+                    df = pl.DataFrame(flat)
+                    #df = pd.json_normalize(flat)
                     # Create a meta frame as a dictionary
                     pyre_utils.moveDFtoDictionary(resourceType, df)
                     i = i + 1
